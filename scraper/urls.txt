@@ -1,0 +1,7 @@
+# urls.txt — one Flipkart product URL per line
+# Lines starting with # are ignored.
+
+# https://www.flipkart.com/apple-iphone-15/p/itm6ac6485515ae4
+# https://www.flipkart.com/samsung-galaxy-s24/p/itmb655203cd8e67
+
+https://www.flipkart.com/goboult-z40-enc-mic-60hr-battery-metal-finish-low-latency-5-3v-bluetooth/p/itm31d2372106d20?pid=ACCGKXHYNUNAAPQU&lid=LSTACCGKXHYNUNAAPQU3M0KRD&marketplace=FLIPKART

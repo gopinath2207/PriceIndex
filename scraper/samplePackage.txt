@@ -1,0 +1,22 @@
+// {
+//     "name": "price-index-scraper",
+//     "version": "1.0.0",
+//     "description": "Nightly scraper for tech prices",
+//     "main": "index.js",
+//     "type": "module",
+//     "scripts": {
+//         "start": "node index.js"
+//     },
+//     "dependencies": {
+//         "axios": "^1.6.7",
+//         "cheerio": "^1.0.0-rc.12",
+//         "dotenv": "^16.6.1",
+//         "drizzle-orm": "^0.45.2",
+//         "pg": "^8.21.0",
+//         "postgres": "^3.4.9",
+//         "puppeteer": "^25.1.0"
+//     },
+//     "devDependencies": {
+//         "drizzle-kit": "^0.31.10"
+//     }
+// }

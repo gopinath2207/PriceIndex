@@ -5,8 +5,16 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
     "dotenv": "^16.4.5",
-    "pg": "^8.11.5",
-    "puppeteer": "^22.10.0"
+    "drizzle-orm": "^0.45.2",
+    "pg": "^8.21.0",
+    "puppeteer": "^22.15.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.10"
   }
 }

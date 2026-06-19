@@ -1,0 +1,39 @@
+name: Nightly Price Scraper
+
+# 1. When should this run?
+on:
+  schedule:
+    # "0 0 * * *" means "Run at exactly 12:00 AM UTC every single day"
+    - cron: '0 0 * * *'
+  # workflow_dispatch adds a "Run" button on GitHub so you can test it manually
+  workflow_dispatch: 
+
+jobs:
+  scrape-prices:
+    # GitHub provides a free Linux server to run this
+    runs-on: ubuntu-latest 
+    
+    steps:
+      # Step 1: Download your code onto the GitHub server
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      # Step 2: Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+          
+      # Step 3: Install Puppeteer, Stealth, PG, etc.
+      # Note: We specify the working-directory because your scraper is in a subfolder!
+      - name: Install Dependencies
+        working-directory: ./scraper
+        run: npm install
+        
+      # Step 4: Run your script! 
+      # We pass the DATABASE_URL securely using GitHub Secrets
+      - name: Run Scraper Script
+        working-directory: ./scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: node index.js

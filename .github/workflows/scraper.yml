@@ -25,17 +25,21 @@ jobs:
           node-version: '20' 
           
       # Step 3: Install Puppeteer, Stealth, PG, etc., AND explicitly install Chrome
-      # Note: We specify the working-directory because your scraper is in a subfolder!
       - name: Install Dependencies & Browsers
         working-directory: ./scraper
+        # Force the Chrome download into a local folder to guarantee it is found
+        env:
+          PUPPETEER_CACHE_DIR: ${{ github.workspace }}/scraper/.cache/puppeteer
         run: |
-          npm install
+          npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth pg dotenv
+          chmod +x ./node_modules/.bin/puppeteer || true
           npx puppeteer browsers install chrome
         
       # Step 4: Run your script! 
-      # We pass the DATABASE_URL securely using GitHub Secrets
       - name: Run Scraper Script
         working-directory: ./scraper
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          # Read Chrome from the exact same local folder
+          PUPPETEER_CACHE_DIR: ${{ github.workspace }}/scraper/.cache/puppeteer
         run: node index.js

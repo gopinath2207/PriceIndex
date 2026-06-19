@@ -27,19 +27,21 @@ jobs:
       # Step 3: Install Puppeteer, Stealth, PG, etc.
       - name: Install Dependencies & Browsers
         working-directory: ./scraper
-        # Force the Chrome download into a local folder to guarantee it is found
         env:
-          PUPPETEER_CACHE_DIR: ${{ github.workspace }}/scraper/.cache/puppeteer
+          # This strictly prevents the buggy postinstall script from crashing npm install
+          PUPPETEER_SKIP_DOWNLOAD: "true"
         run: |
-          # Installing 'puppeteer' directly triggers the Chrome download automatically.
-          # We removed the 'npx' command that was causing the Permission Denied error!
-          npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth pg dotenv
+          npm install
+          
+          # Force the executable permission onto the Puppeteer binary
+          chmod +x ./node_modules/.bin/puppeteer || true
+          
+          # Safely install Chrome manually now that permissions are fixed
+          npx puppeteer browsers install chrome
         
       # Step 4: Run your script! 
       - name: Run Scraper Script
         working-directory: ./scraper
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          # Read Chrome from the exact same local folder
-          PUPPETEER_CACHE_DIR: ${{ github.workspace }}/scraper/.cache/puppeteer
         run: node index.js
